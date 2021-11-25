@@ -1,9 +1,11 @@
 import click
+import logging
 import requests
 import browser_cookie3
 from bs4 import BeautifulSoup
 
 YEAR = "2020"
+logger = logging.getLogger("Downloader")
 
 
 def save_to_file(text, filename):
@@ -15,8 +17,7 @@ def leading_zero(number):
     return "{:02d}".format(number)
 
 
-def download_puzzle():
-    day = 1
+def download_puzzle(day):
     input_url = f"https://adventofcode.com/2020/day/{day}"
     cookies = browser_cookie3.chrome(domain_name='adventofcode.com')
     r = requests.get(input_url, cookies=cookies)
@@ -27,8 +28,7 @@ def download_puzzle():
     return puzzle
 
 
-def download_examples():
-    day = 1
+def download_examples(day):
     input_url = f"https://adventofcode.com/2020/day/{day}"
     cookies = browser_cookie3.chrome(domain_name='adventofcode.com')
     r = requests.get(input_url, cookies=cookies)
@@ -40,8 +40,7 @@ def download_examples():
     return examples
 
 
-def download_input():
-    day = 1
+def download_input(day):
     input_url = f"https://adventofcode.com/2020/day/{day}/input"
     cookies = browser_cookie3.chrome(domain_name='adventofcode.com')
     r = requests.get(input_url, cookies=cookies)
@@ -51,7 +50,19 @@ def download_input():
     return r.text
 
 
+@click.command()
+@click.argument("day", type=int)
+def download_all(day):
+    if not day:
+        raise ValueError("Missing day input")
+
+    logging.info(f"Downloading Day {day}")
+
+    download_input(day)
+    download_puzzle(day)
+    download_examples(day)
+    logging.info(f"Download complete!")
+
+
 if __name__ == "__main__":
-    download_input()
-    download_puzzle()
-    download_examples()
+    download_all()
