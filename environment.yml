@@ -1,0 +1,6 @@
+name: aoc_cookiecutter
+dependencies:
+  - python=3.9
+  - cookiecutter
+  - jinja2
+  - click

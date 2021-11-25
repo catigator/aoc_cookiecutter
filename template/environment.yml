@@ -1,0 +1,5 @@
+name: aoc_{{year}}
+dependencies:
+  - python=3.10
+  - pytest
+  - numpy
