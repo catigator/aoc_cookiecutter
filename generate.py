@@ -67,6 +67,7 @@ def generate_challenge_files():
         with open(file_location, "w+") as f:
             f.write(template.render(day=i))
 
+
 @click.command()
 @click.option('--name', '-n', default="NEW_PROJECT", help='Project Name')
 def generate_all(name):
@@ -78,9 +79,5 @@ def generate_all(name):
     generate_challenge_files()
 
 
-def main():
-    generate_all()
-
-
 if __name__ == "__main__":
-    main()
+    generate_all()

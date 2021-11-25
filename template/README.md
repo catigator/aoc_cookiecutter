@@ -5,6 +5,8 @@ ADVENT OF CODE {{year}}
 1. Install conda
 2. Install conda environment with `conda env update`
 3. Activate conda environment with `conda activate aoc_{{year}}`
+4. Install `browser-cookie3` with `pip install browser-cookie3`
+
 
 # Testing
 
