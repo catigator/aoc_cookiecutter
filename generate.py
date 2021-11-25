@@ -8,10 +8,17 @@ from pathlib import Path
 
 PROJECT_NAME = "NEW_PROJECT"
 BASE_PATH = PROJECT_NAME
+YEAR = 2020
 
 
 UP_PATH = os.path.join(os.path.dirname(__file__), '..')
 CREATE_PATH = os.path.join(UP_PATH, PROJECT_NAME)
+
+
+def set_variables(name):
+    global PROJECT_NAME, CREATE_PATH
+    PROJECT_NAME = name
+    CREATE_PATH = os.path.join(UP_PATH, PROJECT_NAME)
 
 
 def create_empty_file(filepath: str):
@@ -21,6 +28,7 @@ def create_empty_file(filepath: str):
 
 def generate_directory():
     Path(CREATE_PATH).mkdir(parents=True, exist_ok=True)
+    print("Created path at " + str(Path(CREATE_PATH)))
 
 
 # def generate_solution_files():
@@ -59,8 +67,10 @@ def generate_challenge_files():
         with open(file_location, "w+") as f:
             f.write(template.render(day=i))
 
-
-def generate_all():
+@click.command()
+@click.option('--name', '-n', default="NEW_PROJECT", help='Project Name')
+def generate_all(name):
+    set_variables(name)
     generate_directory()
     # generate_solution_files()
     # generate_input_files()
