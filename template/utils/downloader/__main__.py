@@ -27,6 +27,19 @@ def download_puzzle():
     return puzzle
 
 
+def download_examples():
+    day = 1
+    input_url = f"https://adventofcode.com/2020/day/{day}"
+    cookies = browser_cookie3.chrome(domain_name='adventofcode.com')
+    r = requests.get(input_url, cookies=cookies)
+    r.raise_for_status()
+    soup = BeautifulSoup(r.content, 'html.parser')
+    examples = soup.find_all("pre")
+    for i, example in enumerate(examples):
+        save_to_file(example.text, f"aoc/day_{leading_zero(day)}/EXAMPLE_{leading_zero(i+1)}.md")
+    return examples
+
+
 def download_input():
     day = 1
     input_url = f"https://adventofcode.com/2020/day/{day}/input"
@@ -41,3 +54,4 @@ def download_input():
 if __name__ == "__main__":
     download_input()
     download_puzzle()
+    download_examples()
