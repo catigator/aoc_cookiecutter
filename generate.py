@@ -1,9 +1,10 @@
-from os import mkdir
-from os.path import basename, abspath, join, exists
+from os import mkdir, listdir
+from os.path import basename, abspath, join, exists, isfile
 from jinja2 import Template
 import click
 import os
 from pathlib import Path
+from shutil import copy2
 
 
 PROJECT_NAME = "NEW_PROJECT"
@@ -67,6 +68,31 @@ def generate_challenge_files():
         with open(file_location, "w+") as f:
             f.write(template.render(day=i))
 
+    travers_dir(abspath("./template/aoc"))
+
+
+def copy_file(f, di):
+    file_path = join(di, f)
+    new_path = join(CREATE_PATH, "day_01/")
+    new_path_full = join(new_path, f)
+    os.makedirs(new_path, exist_ok=True)
+    copy2(file_path, new_path_full)
+
+
+def travers_dir(di):
+    all_stuff = listdir(di)
+    files = [f for f in all_stuff if isfile(join(di, f))]
+    dirs = [f for f in all_stuff if f not in files]
+    print(files)
+    print(dirs)
+    # ['__init__.py']
+    # ['day_{{day}}']
+    for f in files:
+        copy_file(f, di)
+
+
+
+
 
 @click.command()
 @click.option('--name', '-n', default="NEW_PROJECT", help='Project Name')
@@ -77,6 +103,7 @@ def generate_all(name):
     # generate_input_files()
     # generate_test_files()
     generate_challenge_files()
+    copy_file("__init__.py", "./template/aoc")
 
 
 if __name__ == "__main__":
