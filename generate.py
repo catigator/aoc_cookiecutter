@@ -116,12 +116,13 @@ def travers_dir(di, day=1, extra_path=""):
     for d in dirs:
         # join(di, d) = absolut_path
         # d = additional extra path
-        if "{{day}}" in d:
-            for i in range(DAYS):
-                new_d = d.replace("{{day}}", leading_zero(i + 1))
-                travers_dir(join(di, d), i+1, join(extra_path, new_d))
-        else:
-            travers_dir(join(di, d), day, join(extra_path, d))
+        if "__pycache__" not in d:
+            if "{{day}}" in d:
+                for i in range(DAYS):
+                    new_d = d.replace("{{day}}", leading_zero(i + 1))
+                    travers_dir(join(di, d), i+1, join(extra_path, new_d))
+            else:
+                travers_dir(join(di, d), day, join(extra_path, d))
 
 
 # generate_solution_files()
