@@ -4,3 +4,5 @@ dependencies:
   - cookiecutter
   - jinja2
   - click
+  - requests
+  - beautifulsoup4

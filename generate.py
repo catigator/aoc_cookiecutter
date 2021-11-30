@@ -6,10 +6,12 @@ import os
 from pathlib import Path
 from shutil import copy2
 
+from template.utils.downloader.__main__ import leading_zero
 
 PROJECT_NAME = "NEW_PROJECT"
 BASE_PATH = PROJECT_NAME
 YEAR = 2020
+DAYS = 25
 
 
 UP_PATH = os.path.join(os.path.dirname(__file__), '..')
@@ -71,27 +73,51 @@ def generate_challenge_files():
     travers_dir(abspath("./template/aoc"))
 
 
-def copy_file(f, di):
-    file_path = join(di, f)
-    new_path = join(CREATE_PATH, "day_01/")
-    new_path_full = join(new_path, f)
+def copy_file(f, di, day, extra_path):
+    # f: "file.txt"
+    # di: "c:/jakob/"
+    f_new = f.replace("{{day}}", leading_zero(day))
+    di_new = di.replace("{{day}}", leading_zero(day))
+    extra_path_new = extra_path.replace("{{day}}", leading_zero(day))
+
+    file_path = join(di, f)  # c:/jakob/file.txt
+    new_path = join(CREATE_PATH, extra_path_new)  # c:/NEW_PROJECT/day_01/
+    new_path_full = join(new_path, f_new)  # c:/NEW_PROJECT/day_01/file.txt
+
     os.makedirs(new_path, exist_ok=True)
     copy2(file_path, new_path_full)
 
 
-def travers_dir(di):
+def travers_dir(di, day=1, extra_path=""):
+    print(f"Traversing {di}, extra_path = {extra_path}")
     all_stuff = listdir(di)
     files = [f for f in all_stuff if isfile(join(di, f))]
     dirs = [f for f in all_stuff if f not in files]
+    dirs = [d for d in dirs if "." not in d]
+    dirs_abs = [join(di, d) for d in dirs]
+
     print(files)
     print(dirs)
     # ['__init__.py']
     # ['day_{{day}}']
     for f in files:
-        copy_file(f, di)
+        if ".py" in f:
+            copy_file(f, di, day, extra_path)
+
+    for d in dirs:
+        # join(di, d) = absolut_path
+        # d = additional extra path
+        if "{{day}}" in d:
+            for i in range(DAYS):
+                new_d = d.replace("{{day}}", leading_zero(i + 1))
+                travers_dir(join(di, d), i, join(extra_path, new_d))
+        else:
+            travers_dir(join(di, d), day, join(extra_path, d))
 
 
-
+# generate_solution_files()
+# generate_input_files()
+# generate_test_files()
 
 
 @click.command()
@@ -99,12 +125,13 @@ def travers_dir(di):
 def generate_all(name):
     set_variables(name)
     generate_directory()
-    # generate_solution_files()
-    # generate_input_files()
-    # generate_test_files()
-    generate_challenge_files()
-    copy_file("__init__.py", "./template/aoc")
+    # generate_challenge_files()
+    template_path = join(os.path.dirname(__file__), "template")
+    print(f"template_path: {template_path}")
+    travers_dir(template_path, 1, "")
+    # copy_file("__init__.py", "./template/aoc")
 
 
 if __name__ == "__main__":
+
     generate_all()

@@ -23,4 +23,5 @@ and they will be downloaded to `aoc/day_{day}/` as `INPUT.md`, `PUZZLE.md` and `
 
 # Instructions
 
+
 Run with e.g. `python -m aoc.day_04` from root folder after activating the conda environment
