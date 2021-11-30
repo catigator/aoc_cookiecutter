@@ -110,7 +110,7 @@ def travers_dir(di, day=1, extra_path=""):
     # ['day_{{day}}']
     for f in files:
         if ".py" in f and ".pyc" not in f\
-                or ".md" in f or ".yml" in f:
+                or ".md" in f or ".yml" in f or ".gitignore" in f:
             copy_file(f, di, day, extra_path)
 
     for d in dirs:
