@@ -85,7 +85,15 @@ def copy_file(f, di, day, extra_path):
     new_path_full = join(new_path, f_new)  # c:/NEW_PROJECT/day_01/file.txt
 
     os.makedirs(new_path, exist_ok=True)
-    copy2(file_path, new_path_full)
+
+    if ".py" in f:
+        with open(file_path) as tf:
+            print(file_path)
+            template = Template(tf.read())
+        with open(new_path_full, "w+") as pf:
+            pf.write(template.render(day=leading_zero(day)))
+    else:
+        copy2(file_path, new_path_full)
 
 
 def travers_dir(di, day=1, extra_path=""):
@@ -101,7 +109,7 @@ def travers_dir(di, day=1, extra_path=""):
     # ['__init__.py']
     # ['day_{{day}}']
     for f in files:
-        if ".py" in f:
+        if ".py" in f and ".pyc" not in f:
             copy_file(f, di, day, extra_path)
 
     for d in dirs:
@@ -110,7 +118,7 @@ def travers_dir(di, day=1, extra_path=""):
         if "{{day}}" in d:
             for i in range(DAYS):
                 new_d = d.replace("{{day}}", leading_zero(i + 1))
-                travers_dir(join(di, d), i, join(extra_path, new_d))
+                travers_dir(join(di, d), i+1, join(extra_path, new_d))
         else:
             travers_dir(join(di, d), day, join(extra_path, d))
 
