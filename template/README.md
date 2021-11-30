@@ -9,7 +9,7 @@ ADVENT OF CODE {{year}}
 
 # Testing
 
-Run with e.g. `python -m pytest` or `python -m pytest aoc.day_04`
+Run with e.g. `python -m pytest` or `pytest aoc/day_01`
 
 # Download 
 
