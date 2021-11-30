@@ -86,7 +86,7 @@ def copy_file(f, di, day, extra_path):
 
     os.makedirs(new_path, exist_ok=True)
 
-    if ".py" in f or ".yml" in f:
+    if ".py" in f or ".yml" in f or ".md" in f:
         with open(file_path) as tf:
             print(file_path)
             template = Template(tf.read())
