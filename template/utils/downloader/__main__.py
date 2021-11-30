@@ -4,7 +4,7 @@ import requests
 import browser_cookie3
 from bs4 import BeautifulSoup
 
-YEAR = "2020"
+YEAR = "{{year}}"
 logger = logging.getLogger("Downloader")
 
 
@@ -18,7 +18,7 @@ def leading_zero(number):
 
 
 def download_puzzle(day):
-    input_url = f"https://adventofcode.com/2020/day/{day}"
+    input_url = f"https://adventofcode.com/{YEAR}/day/{day}"
     cookies = browser_cookie3.chrome(domain_name='adventofcode.com')
     r = requests.get(input_url, cookies=cookies)
     r.raise_for_status()
@@ -29,7 +29,7 @@ def download_puzzle(day):
 
 
 def download_examples(day):
-    input_url = f"https://adventofcode.com/2020/day/{day}"
+    input_url = f"https://adventofcode.com/{YEAR}/day/{day}"
     cookies = browser_cookie3.chrome(domain_name='adventofcode.com')
     r = requests.get(input_url, cookies=cookies)
     r.raise_for_status()
@@ -41,7 +41,7 @@ def download_examples(day):
 
 
 def download_input(day):
-    input_url = f"https://adventofcode.com/2020/day/{day}/input"
+    input_url = f"https://adventofcode.com/{YEAR}/day/{day}/input"
     cookies = browser_cookie3.chrome(domain_name='adventofcode.com')
     r = requests.get(input_url, cookies=cookies)
     r.raise_for_status()

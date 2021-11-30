@@ -10,7 +10,7 @@ from template.utils.downloader.__main__ import leading_zero
 
 PROJECT_NAME = "NEW_PROJECT"
 BASE_PATH = PROJECT_NAME
-YEAR = 2020
+YEAR = 2021
 DAYS = 25
 
 
@@ -86,12 +86,12 @@ def copy_file(f, di, day, extra_path):
 
     os.makedirs(new_path, exist_ok=True)
 
-    if ".py" in f:
+    if ".py" in f or ".yml" in f:
         with open(file_path) as tf:
             print(file_path)
             template = Template(tf.read())
         with open(new_path_full, "w+") as pf:
-            pf.write(template.render(day=leading_zero(day)))
+            pf.write(template.render({"day": leading_zero(day), "year":YEAR}))
     else:
         copy2(file_path, new_path_full)
 
@@ -109,7 +109,8 @@ def travers_dir(di, day=1, extra_path=""):
     # ['__init__.py']
     # ['day_{{day}}']
     for f in files:
-        if ".py" in f and ".pyc" not in f:
+        if ".py" in f and ".pyc" not in f\
+                or ".md" in f or ".yml" in f:
             copy_file(f, di, day, extra_path)
 
     for d in dirs:
