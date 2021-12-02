@@ -34,45 +34,6 @@ def generate_directory():
     print("Created path at " + str(Path(CREATE_PATH)))
 
 
-# def generate_solution_files():
-#     for i in range(1, 26):
-#         answers_path = abspath(f'./advent_of_Code/data/answers')
-#         day_path = join(answers_path, f"day_{i}")
-#         if not exists(day_path):
-#             mkdir(day_path)
-#         create_empty_file(join(answers_path, f"day_{i}", "part_1.txt"))
-#         create_empty_file(join(answers_path, f"day_{i}", "part_2.txt"))
-
-
-def generate_input_files():
-    for i in range(1, 26):
-        create_empty_file(abspath(f'./advent_of_Code/data/input/day_{i}'))
-
-
-def generate_test_files():
-    for i in range(1, 26):
-        with open(abspath(f"./templates/test.tmpl")) as f:
-            template = Template(f.read())
-        with open(abspath(f"./advent_of_Code/challenges/tests/test_day_{i}.py"), "w+") as f:
-            f.write(template.render(day=i))
-
-
-def generate_challenge_files():
-    template = None
-    with open(abspath("./template/aoc/day_{{day}}/__main__.py")) as f:
-        template = Template(f.read())
-
-    challenge_directory = os.path.join(CREATE_PATH, "aoc")
-    Path(challenge_directory).mkdir(parents=True, exist_ok=True)
-
-    for i in range(1, 26):
-        file_location = os.path.join(challenge_directory, f"day_{i}.py")
-        with open(file_location, "w+") as f:
-            f.write(template.render(day=i))
-
-    travers_dir(abspath("./template/aoc"))
-
-
 def copy_file(f, di, day, extra_path):
     # f: "file.txt"
     # di: "c:/jakob/"
@@ -104,10 +65,9 @@ def travers_dir(di, day=1, extra_path=""):
     dirs = [d for d in dirs if "." not in d]
     dirs_abs = [join(di, d) for d in dirs]
 
-    print(files)
-    print(dirs)
-    # ['__init__.py']
-    # ['day_{{day}}']
+    print(files)  # ['__init__.py']
+    print(dirs)  # ['day_{{day}}']
+
     for f in files:
         if ".py" in f and ".pyc" not in f\
                 or ".md" in f or ".yml" in f or ".gitignore" in f:
@@ -125,21 +85,14 @@ def travers_dir(di, day=1, extra_path=""):
                 travers_dir(join(di, d), day, join(extra_path, d))
 
 
-# generate_solution_files()
-# generate_input_files()
-# generate_test_files()
-
-
 @click.command()
 @click.option('--name', '-n', default="NEW_PROJECT", help='Project Name')
 def generate_all(name):
     set_variables(name)
     generate_directory()
-    # generate_challenge_files()
     template_path = join(os.path.dirname(__file__), "template")
     print(f"template_path: {template_path}")
     travers_dir(template_path, 1, "")
-    # copy_file("__init__.py", "./template/aoc")
 
 
 if __name__ == "__main__":

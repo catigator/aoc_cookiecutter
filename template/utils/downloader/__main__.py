@@ -36,7 +36,7 @@ def download_examples(day):
     soup = BeautifulSoup(r.content, 'html.parser')
     examples = soup.find_all("pre")
     for i, example in enumerate(examples):
-        save_to_file(example.text, f"aoc/day_{leading_zero(day)}/EXAMPLE_{leading_zero(i+1)}.md")
+        save_to_file(example.text, f"aoc/day_{leading_zero(day)}/EXAMPLE_{leading_zero(i+1)}.txt")
     return examples
 
 
@@ -46,7 +46,7 @@ def download_input(day):
     r = requests.get(input_url, cookies=cookies)
     r.raise_for_status()
     # print(r.text)
-    save_to_file(r.text, f"aoc/day_{leading_zero(day)}/INPUT.md")
+    save_to_file(r.text, f"aoc/day_{leading_zero(day)}/INPUT.txt")
     return r.text
 
 

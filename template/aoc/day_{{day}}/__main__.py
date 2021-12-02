@@ -3,8 +3,8 @@ from typing import List
 
 logger = logging.getLogger("Day {{day}}")
 
-INPUT_FILENAME = "day_{{day}}/input.txt"
-EXAMPLE_FILENAME = "day_{{day}}/example.txt"
+INPUT_FILENAME = "aoc/day_{{day}}/INPUT.txt"
+EXAMPLE_FILENAME = "aoc/day_{{day}}/EXAMPLE_01.txt"
 
 
 def solve_part_1():
