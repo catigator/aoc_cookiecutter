@@ -32,7 +32,7 @@ and they will be downloaded to `aoc/day_{day}/` as `INPUT.md`, `PUZZLE.md` and `
 
 NOTE: On Mac (macOS 12.6) I had to follow the instructions at https://stackoverflow.com/questions/33699577/conda-update-fails-with-ssl-error-certificate-verify-failed/57305648#57305648 and set the 
 REQUESTS_CA_BUNDLE environment variable to the certificate used when visiting adventofcode.com. This messes with e.g. `pip`
-installations so it's easiest to just run once locally in a terminal before using the downloader, as opposed to `.zshrc`
+installations so it's easiest to just run once locally in a terminal before using the downloader, as opposed to adding it to `.zshrc`
 
 # Instructions
 
