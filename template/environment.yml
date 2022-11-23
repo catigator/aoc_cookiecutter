@@ -1,4 +1,7 @@
 name: aoc_{{year}}
+channels:
+  - anaconda
+  - conda-forge
 dependencies:
   - python=3.11
   - pytest

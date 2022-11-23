@@ -1,4 +1,7 @@
 name: aoc_cookiecutter
+channels:
+  - anaconda
+  - conda-forge
 dependencies:
   - python=3.9
   - cookiecutter
