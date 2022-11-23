@@ -23,8 +23,8 @@ def read_input_lines(filename: str, strip_whitespace: bool=False) -> List[str]:
 
     Output examples:
 
-    ["I am not stripped of my whitespace."]
-    ["I", "am", "stripped", "of", "my", "whitespace."]
+    [["I am stripped of my whitespace."]]
+    [[" I am not stripped of my whitespace.\n"]]
     """
     lines_list = []
 
