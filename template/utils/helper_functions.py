@@ -27,3 +27,20 @@ def read_input_int(filename: str) -> list:
 
     return numbers
 
+
+def read_input_int_individuals(filename: str) -> list:
+    input_line = read_input(filename)
+
+    numbers = [int(number) for number in input_line.split(",")]
+
+    return numbers
+
+
+def read_input_int_matrix(filename: str) -> list:
+    lines = read_input_lines(filename, strip_whitespace=True)
+    matrix = []
+
+    for line in lines:
+        matrix.append([int(number) for number in line])
+
+    return matrix

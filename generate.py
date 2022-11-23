@@ -18,9 +18,10 @@ UP_PATH = os.path.join(os.path.dirname(__file__), '..')
 CREATE_PATH = os.path.join(UP_PATH, PROJECT_NAME)
 
 
-def set_variables(name):
-    global PROJECT_NAME, CREATE_PATH
+def set_variables(name, year):
+    global PROJECT_NAME, YEAR, CREATE_PATH
     PROJECT_NAME = name
+    YEAR = year
     CREATE_PATH = os.path.join(UP_PATH, PROJECT_NAME)
 
 
@@ -31,7 +32,7 @@ def create_empty_file(filepath: str):
 
 def generate_directory():
     Path(CREATE_PATH).mkdir(parents=True, exist_ok=True)
-    print("Created path at " + str(Path(CREATE_PATH)))
+    print("Created path at " + str(abspath(Path(CREATE_PATH))))
 
 
 def copy_file(f, di, day, extra_path):
@@ -49,7 +50,7 @@ def copy_file(f, di, day, extra_path):
 
     if ".py" in f or ".yml" in f or ".md" in f:
         with open(file_path) as tf:
-            print(file_path)
+            # print(file_path)
             template = Template(tf.read())
         with open(new_path_full, "w+") as pf:
             pf.write(template.render({"day": leading_zero(day), "year":YEAR}))
@@ -58,15 +59,15 @@ def copy_file(f, di, day, extra_path):
 
 
 def travers_dir(di, day=1, extra_path=""):
-    print(f"Traversing {di}, extra_path = {extra_path}")
+    # print(f"Traversing {di}, extra_path = {extra_path}")
     all_stuff = listdir(di)
     files = [f for f in all_stuff if isfile(join(di, f))]
     dirs = [f for f in all_stuff if f not in files]
     dirs = [d for d in dirs if "." not in d]
     dirs_abs = [join(di, d) for d in dirs]
 
-    print(files)  # ['__init__.py']
-    print(dirs)  # ['day_{{day}}']
+    # print(files)  # ['__init__.py']
+    # print(dirs)  # ['day_{{day}}']
 
     for f in files:
         if ".py" in f and ".pyc" not in f\
@@ -87,11 +88,11 @@ def travers_dir(di, day=1, extra_path=""):
 
 @click.command()
 @click.option('--name', '-n', default="NEW_PROJECT", help='Project Name')
-def generate_all(name):
-    set_variables(name)
+@click.option('--year', '-y', default=2022, help='Year')
+def generate_all(name, year):
+    set_variables(name, year)
     generate_directory()
     template_path = join(os.path.dirname(__file__), "template")
-    print(f"template_path: {template_path}")
     travers_dir(template_path, 1, "")
 
 

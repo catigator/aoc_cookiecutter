@@ -1,11 +1,9 @@
 import click
-import logging
 import requests
 import browser_cookie3
 from bs4 import BeautifulSoup
 
 YEAR = "{{year}}"
-logger = logging.getLogger("Downloader")
 
 
 def save_to_file(text, filename):
@@ -56,12 +54,12 @@ def download_all(day):
     if not day:
         raise ValueError("Missing day input")
 
-    logging.info(f"Downloading Day {day}")
+    print(f"Downloading Day {day}")
 
     download_input(day)
     download_puzzle(day)
     download_examples(day)
-    logging.info(f"Download complete!")
+    print(f"Download complete!")
 
 
 if __name__ == "__main__":
