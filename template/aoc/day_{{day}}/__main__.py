@@ -1,5 +1,11 @@
 from utils.decorators import time_it
-from utils.helper_functions import read_input
+from utils.helper_functions import (
+    read_input,
+    read_input_lines,
+    read_input_int,
+    read_input_int_individuals,
+    read_input_int_matrix
+)
 
 
 INPUT_FILENAME = "aoc/day_{{day}}/INPUT.txt"
