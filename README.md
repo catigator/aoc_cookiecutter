@@ -8,6 +8,13 @@ This creates a template structure for writing your Advent of Code for the year. 
 * A CLI to download the input, puzzle description and examples for a specific day to local files
 * Some helper functions to read files in different formats etc.
 
+# Installation
+
+1. Install conda
+2. Create conda environment with `conda create --name aoc_cookiecutter python=3.11 --channel conda-forge`
+3. Install conda environment with `conda env update`
+4. Activate conda environment with `conda activate aoc_cookiecutter`
+
 # How to run
 
 run:

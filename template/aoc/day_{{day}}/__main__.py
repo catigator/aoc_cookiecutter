@@ -1,4 +1,5 @@
 from utils.decorators import time_it
+from utils.helper_functions import read_input
 
 
 INPUT_FILENAME = "aoc/day_{{day}}/INPUT.txt"
