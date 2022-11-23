@@ -14,6 +14,7 @@ This creates a template structure for writing your Advent of Code for the year. 
 2. Create conda environment with `conda create --name aoc_cookiecutter python=3.11 --channel conda-forge`
 3. Install conda environment with `conda env update`
 4. Activate conda environment with `conda activate aoc_cookiecutter`
+5. Install `browser-cookie3` with `pip install browser-cookie3`
 
 # How to run
 
