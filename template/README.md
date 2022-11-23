@@ -22,6 +22,12 @@ Download the input, puzzle description and examples for a specific day with:
 python -m utils.downloader <day: int>
 ```
 
+e.g.
+
+```commandline
+python -m utils.downloader 4
+```
+
 and they will be downloaded to `aoc/day_{day}/` as `INPUT.md`, `PUZZLE.md` and `EXAMPLE_X.md`.
 
 # Instructions
