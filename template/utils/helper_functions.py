@@ -37,6 +37,12 @@ def read_input_lines(filename: str, strip_whitespace: bool=False) -> List[str]:
     return lines_list
 
 
+def read_input_lines_strip_newline(filename: str):
+    lines = read_input_lines(filename)
+    stripped_lines = [line.strip("\n") for line in lines]
+    return stripped_lines
+
+
 def read_input_int(filename: str) -> List[int]:
     """
 
@@ -83,6 +89,76 @@ def read_input_int_individuals(filename: str) -> list:
     return numbers
 
 
+def read_input_split_on_empty_line(filename: str) -> list:
+    """
+    Reads a file and returns all numbers in file as separated by commas
+
+    Example input:
+
+    a
+    a
+
+    b
+    b
+    b
+
+    Example output:
+
+    [
+        [a
+        a],
+
+        [b
+        b
+        b]
+    ]
+    """
+    lines = read_input_lines(filename, True)
+    split_lines = []
+    temp = []
+    for line in lines:
+        if line != "":
+            temp.append(line)
+        else:
+            split_lines.append(temp)
+            temp = []
+    if temp != []:
+        split_lines.append(temp)
+    return split_lines
+
+def read_input_int_split_on_empty_line(filename: str) -> list:
+    """
+    Reads a file and returns all numbers in file as separated by commas
+
+    Example input:
+
+    1
+    2
+    3
+
+    4
+
+    5
+    6
+
+    Example output:
+
+    [[1, 2. 3], [4]. [5, 6]]
+    """
+    lines = read_input_lines(filename, True)
+    split_lines = []
+    temp = []
+    for line in lines:
+        if line != "":
+            temp.append(int(line))
+        else:
+            split_lines.append(temp)
+            temp = []
+    if temp != []:
+        split_lines.append(temp)
+    return split_lines
+
+
 def read_input_int_matrix(filename: str) -> List[List[int]]:
     """
     Reads a file and returns all numbers in file as if it was a matrix
@@ -112,3 +188,28 @@ def read_input_int_matrix(filename: str) -> List[List[int]]:
         matrix.append([int(number) for number in line])
 
     return matrix
+
+
+def split_list_on_entry(entries: List, signifier):
+    split_list = []
+    temp = []
+    for entry in entries:
+        if entry != signifier:
+            temp.append(entry)
+        else:
+            split_list.append(temp)
+            temp = []
+
+    if temp != []:
+        split_list.append(temp)
+
+    return split_list
+
+
+def add_pos(a, b):
+    return a[0] + b[0], a[1] + b[1]
+
+
+def print_matrix(matrix):
+    for line in matrix:
+        print(line)
